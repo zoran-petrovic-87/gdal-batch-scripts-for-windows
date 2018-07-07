@@ -1,0 +1,2 @@
+# GDAL scripts for Windows
+
