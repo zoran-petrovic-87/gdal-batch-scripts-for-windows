@@ -2,7 +2,7 @@ CLS
 @ECHO OFF
 COLOR f1
 ECHO ************************************************************
-ECHO *                - BATCH RESIZE TIF FILES -                *
+ECHO *                  - COMPRESS TIF FILES -                  *
 ECHO ************************************************************
 ECHO * Author: Zoran Petrovic                                   *
 ECHO * Email: zoran@zoran-software.com                          *
@@ -21,19 +21,24 @@ ECHO * If the directory does not exist yet, it will be created.
 ECHO * Example: C:\Users\Zoran\Desktop\temp files\output
 SET /P dir_out=: 
 CLS
-ECHO Enter the size of the output file
-ECHO * Outsize is in pixels and lines unless '%%' is attached 
-ECHO * in which case it is as a fraction of the input image size.
-ECHO * Starting with GDAL 2.0, if one of the 2 values is
-ECHO * set to 0, its value will be determined from the other one,
-ECHO * while maintaining the aspect ratio of the source dataset.
-ECHO * Example: 1600 1200
-ECHO * Example: 30%% 30%%
-SET /P size_in=: 
 IF NOT EXIST "%dir_out%" MD "%dir_out%"
 CLS
+ECHO Select compression profile:
+ECHO * Enter 1 for a low compression.
+ECHO * Enter 2 for a high compression.
+ECHO * Enter 3 for a JPEG compression (lossy compression).
+ECHO * 
+ECHO * Warning: Lossy compression reduces a file by permanently
+ECHO * eliminating certain information, especially redundant 
+ECHO * information.
+SET /P type=: 
+CLS
+if %type% == 1 SET type_val=-co COMPRESS=PACKBITS -co BIGTIFF=YES
+if %type% == 2 SET type_val=-co COMPRESS=DEFLATE -co PREDICTOR=2 -co ZLEVEL=9 -co BIGTIFF=YES
+if %type% == 3 SET type_val=-co COMPRESS=JPEG -co JPEG_QUALITY=75 -co BIGTIFF=YES
+
 FOR %%a IN ("%dir_in%\*.tif") DO (
-	.\gdal\gdal_translate.exe -outsize %size_in% "%%a" "%dir_out%\%%~na.tif" -co "TFW=YES"
+	.\gdal\gdal_translate.exe -of GTiff %type_val% "%%a" "%dir_out%\%%~na.tif"
 )
 ECHO ************************************************************
 ECHO *                           DONE                           *
