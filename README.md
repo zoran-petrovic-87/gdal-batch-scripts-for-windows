@@ -1,4 +1,5 @@
 # GDAL batch scripts for Windows
+These scripts are very useful when you need to process multiple files that are stored in the same folder.
 
 How to use:
 
@@ -7,7 +8,7 @@ How to use:
 * Run .bat file and follow the instructions.
 
 ## assign_projection_to_tif.bat
-Assigns projection to TIF files without re-projecting
+Assigns projection to TIF files without re-projecting.
 
 ## compress_tif.bat
 Compresses TIF files. You can select one of three predefined compression types.
