@@ -22,7 +22,7 @@ ECHO and replace existing files?
 ECHO * yes or no
 ECHO *
 ECHO * Warning: Be careful when using this option 
-ECHO * (especially with JPEG compression)!.
+ECHO * (especially with JPEG compression)!
 ECHO * In case of an error you could lose your data!
 SET /P search_subfolders=: 
 
@@ -62,8 +62,8 @@ GOTO end
 
 :search_subfolders
 FOR /R "%dir_in%\" %%a IN (*.tif) DO (
+	ECHO "%%~nxa"
 	.\gdal\gdal_translate.exe -of GTiff %type_val% "%%a" "%%atemp" -co "TFW=YES"
-	echo "%%~nxa"
 	DEL "%%a"
 	rename "%%atemp" "%%~nxa"
 )
