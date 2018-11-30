@@ -28,7 +28,7 @@ SET /P mask=:
 IF NOT EXIST "%dir_out%" MD "%dir_out%"
 CLS
 FOR %%a IN ("%dir_in%\*.tif") DO (
-	.\gdal\gdalwarp -of GTiff -cutline "%mask%" -dstalpha "%%a" "%dir_out%\%%~na.tif"
+	.\gdal\gdalwarp -of GTiff -cutline "%mask%" -crop_to_cutline -dstalpha -co BIGTIFF=YES "%%a" "%dir_out%\%%~na.tif"
 )
 ECHO ************************************************************
 ECHO *                           DONE                           *
