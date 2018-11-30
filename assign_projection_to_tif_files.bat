@@ -2,7 +2,7 @@ CLS
 @ECHO OFF
 COLOR f1
 ECHO ************************************************************
-ECHO *                - BATCH RESIZE TIF FILES -                *
+ECHO *            - ASSIGN PROJECTION TO TIF FILES -            *
 ECHO ************************************************************
 ECHO * Author: Zoran Petrovic                                   *
 ECHO * Email: zoran@zoran-software.com                          *
@@ -21,19 +21,13 @@ ECHO * If the directory does not exist yet, it will be created.
 ECHO * Example: C:\Users\Zoran\Desktop\temp files\output
 SET /P dir_out=: 
 CLS
-ECHO Enter the size of the output file
-ECHO * Outsize is in pixels and lines unless '%%' is attached 
-ECHO * in which case it is as a fraction of the input image size.
-ECHO * Starting with GDAL 2.0, if one of the 2 values is
-ECHO * set to 0, its value will be determined from the other one,
-ECHO * while maintaining the aspect ratio of the source dataset.
-ECHO * Example: 1600 1200
-ECHO * Example: 30%% 30%%
-SET /P size_in=: 
+ECHO Enter the EPSG code
+ECHO * Example: 4326
+SET /P epsg=: 
 IF NOT EXIST "%dir_out%" MD "%dir_out%"
 CLS
 FOR %%a IN ("%dir_in%\*.tif") DO (
-	.\gdal\gdal_translate.exe -outsize %size_in% "%%a" "%dir_out%\%%~na.tif" -co "TFW=YES"
+	.\gdal\gdal_translate.exe -a_srs EPSG:%epsg% "%%a" "%dir_out%\%%~na.tif"
 )
 ECHO ************************************************************
 ECHO *                           DONE                           *

@@ -2,7 +2,7 @@ CLS
 @ECHO OFF
 COLOR f1
 ECHO ************************************************************
-ECHO *           - BATCH CLIP RASTER BY MASK LAYER -            *
+ECHO *             - CLIP TIF FILES BY MASK LAYER -             *
 ECHO ************************************************************
 ECHO * Author: Zoran Petrovic                                   *
 ECHO * Email: zoran@zoran-software.com                          *
