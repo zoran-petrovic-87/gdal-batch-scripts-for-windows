@@ -51,7 +51,7 @@ SET /P type=:
 CLS
 IF %type% == 1 SET type_val=-co COMPRESS=PACKBITS -co BIGTIFF=YES
 IF %type% == 2 SET type_val=-co COMPRESS=DEFLATE -co PREDICTOR=2 -co ZLEVEL=9 -co BIGTIFF=YES
-IF %type% == 3 SET type_val=-co COMPRESS=JPEG -co JPEG_QUALITY=75 -co BIGTIFF=YES
+IF %type% == 3 SET type_val=-co COMPRESS=JPEG -co PHOTOMETRIC=YCBCR -co TILED=YES -co JPEG_QUALITY=95 -co BIGTIFF=YES
 
 IF /I "%search_subfolders%"=="yes" GOTO search_subfolders
 FOR %%a IN ("%dir_in%\*.tif") DO (
